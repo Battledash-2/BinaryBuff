@@ -1,0 +1,22 @@
+{
+  "name": "binarybuff",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "node lib/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Battledash-2/BinaryBuff.git"
+  },
+  "author": "Battledash-2",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Battledash-2/BinaryBuff/issues"
+  },
+  "homepage": "https://github.com/Battledash-2/BinaryBuff#readme"
+}
