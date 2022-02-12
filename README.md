@@ -1,8 +1,7 @@
 # 🔢BinaryBuff🐃 (&copy;)
 
 ## What is it?
-#### ***BinaryBuff** is a module to convert strings and unsigned integers to buffers,
-#### then later on save it and read it from a binary file.
+#### ***BinaryBuff*** is a module to convert strings and unsigned integers to buffers,<br>then later on save it and read it from a binary file.
 
 ### Usage:
 #### Encoding an value:
