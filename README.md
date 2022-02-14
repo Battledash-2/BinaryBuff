@@ -38,6 +38,10 @@ console.log(bbuf.encode(42, "hello"));
 #### Usage of object encoding is not recommended:
 - Object encoding uses a object-to-string method
 - Arbitrary code execution is possible
+- Checks are very light
+#### Usage of object encoded is recommended in specific cases:
+- You are sure the code is safe
+- You want to use less storage
 
 #### Encoding an object is only possible via `BinaryBuff.encode`
 ```js
