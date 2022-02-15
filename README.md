@@ -20,33 +20,44 @@ const encodedStr = bbuf.string.encode("hello");
 ```js
 const bbuf = require('binarybuff');
 
-const hello = bbuf.string.encode("Hello, ");
-const world = bbuf.string.encode("world!");
+const hello = bbuf.string.encode(true, "Hello, ");
+const world = bbuf.string.encode(true, "world!");
 
 console.log(bbuf.string.decode(hello) + bbuf.string.decode(world));
 ```
 
 ### Encoding multiple values
+#### When we use the `encode` function directly, we have to specify whether we would like to encode it in safe mode or not.
 #### To encode multiple values, we can use `BinaryBuff.encode`
 ```js
 const bbuf = require('binarybuff');
 
-console.log(bbuf.encode(42, "hello"));
+console.log(bbuf.encode(true, 42, "hello"));
+```
+
+### Creating a custom operator
+#### If you're looking for custom functionality in `BinaryBuff`, you can add your own operator for the decoder
+#### `BinaryBuff.internal.handleOperator` creates a new operator and returns the opcode of your operator
+```js
+const bbuf = require('binarybuff');
+const helloOperator = bbuf.internal.handleOperator((value) => {
+	console.log('My custom operator!');
+	return "Hello, " + bbuf.string.decode(value);
+});
+
+const encodeHelloOperator = (helloTo='me') => {
+	return bbuf.internal.encode(helloOperator, helloTo);
+};
+
+console.log(bbuf.decode(encodeHelloOperator('BinaryBuff')));
 ```
 
 ### Encoding objects/arrays (❗ USAGE IS NOT RECOMMENDED ❗)
-#### Usage of object encoding is not recommended:
-- Object encoding uses a object-to-string method
-- Arbitrary code execution is possible
-- Checks are very light
-#### Usage of object encoded is recommended in specific cases:
-- You are sure the code is safe
-- You want to use less storage
-
 #### Encoding an object is only possible via `BinaryBuff.encode`
+#### If you'd like to store any sort of Javascript functions,<br/> you have to encode and decode it as an unsafe object.
 ```js
 const bbuf = require('binarybuff');
 
-const encoded = bbuf.encode([ 53, 89 ], { hello: "Hello, ", sayHelloTo: (usr)=>{console.log("Hello,", usr);} });
-bbuf.decode(encoded)[1].sayHelloTo("me!");
+const encoded = bbuf.encode(false, [ 53, 89 ], { hello: "Hello, ", sayHelloTo: (usr)=>{console.log("Hello,", usr);} });
+bbuf.decode(encoded, false)[1].sayHelloTo("me!");
 ```
